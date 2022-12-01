@@ -1,9 +1,10 @@
+import { UserOutlined } from '@ant-design/icons';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Button, Space } from 'antd';
 import React from 'react';
 
 export default {
-  title: 'antd/Buttons',
+  title: 'antd/Button',
   component: Button,
   argTypes: {
     block: {
@@ -79,7 +80,7 @@ export default {
   },
 } as ComponentMeta<typeof Button>;
 
-export const ButtonsStory: ComponentStory<typeof Button> = (args) => (
+const Template: ComponentStory<typeof Button> = (args) => (
   <Space size={16}>
     <Button type="default" {...args}>
       {args.children || 'Default'}
@@ -102,4 +103,24 @@ export const ButtonsStory: ComponentStory<typeof Button> = (args) => (
   </Space>
 );
 
-ButtonsStory.storyName = 'Buttons';
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  danger: true,
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  loading: true,
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  disabled: true,
+};
+
+export const Icon = Template.bind({});
+Icon.args = {
+  icon: <UserOutlined />,
+};

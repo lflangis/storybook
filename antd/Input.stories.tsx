@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Input, Space } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { Form, Input, Space } from 'antd';
+import { SmileOutlined, UserOutlined } from '@ant-design/icons';
 import React from 'react';
 
 export default {
@@ -26,12 +26,12 @@ export default {
         type: { summary: 'boolean | {clearIcon: ReactNode}' },
       },
     },
-    bordered: {
-      description: 'Whether has border style',
-      control: { type: 'boolean' },
-      defaultValue: true,
-      table: { defaultValue: { summary: 'true' }, type: { summary: 'boolean' } },
-    },
+    // bordered: {
+    //   description: 'Whether has border style',
+    //   control: { type: 'boolean' },
+    //   defaultValue: true,
+    //   table: { defaultValue: { summary: 'true' }, type: { summary: 'boolean' } },
+    // },
     defaultValue: {
       description: 'The initial input content',
       control: { type: 'text' },
@@ -126,12 +126,87 @@ export default {
   },
 } as ComponentMeta<typeof Input>;
 
-export const InputStory: ComponentStory<typeof Input> = (args) => (
-  <Space>
-    <Input placeholder="e.g. placeholder" {...args}></Input>
-    <Input placeholder="e.g. placeholder" prefix={<UserOutlined />} {...args}></Input>
-    <Input placeholder="e.g. placeholder" suffix={<UserOutlined />} {...args}></Input>
+const Template: ComponentStory<typeof Input> = (args) => (
+  <Space direction="vertical">
+    <Space>
+      <Input placeholder="e.g. placeholder" {...args}></Input>
+      <Input placeholder="e.g. placeholder" prefix={<UserOutlined />} {...args}></Input>
+      <Input placeholder="e.g. placeholder" suffix={<UserOutlined />} {...args}></Input>
+    </Space>
+
+    <Space>
+      <Input placeholder="e.g. placeholder" defaultValue="lorem ipsum" {...args}></Input>
+      <Input
+        placeholder="e.g. placeholder"
+        defaultValue="lorem ipsum"
+        prefix={<UserOutlined />}
+        {...args}
+      ></Input>
+      <Input
+        placeholder="e.g. placeholder"
+        defaultValue="lorem ipsum"
+        suffix={<UserOutlined />}
+        {...args}
+      ></Input>
+    </Space>
   </Space>
 );
 
-InputStory.storyName = 'Input';
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  status: 'error',
+};
+
+export const Warning = Template.bind({});
+Warning.args = {
+  status: 'warning',
+};
+
+export const WithCaption: ComponentStory<typeof Input> = (args) => (
+  <Form
+    labelCol={{
+      xs: { span: 24 },
+      sm: { span: 6 },
+    }}
+    wrapperCol={{
+      xs: { span: 24 },
+      sm: { span: 14 },
+    }}
+  >
+    <Form.Item label="Fail" validateStatus="error" help="Lorem ipsum dolor sit amet">
+      <Input value="lorem ipsum" id="error" {...args} />
+    </Form.Item>
+
+    <Form.Item label="Warning" validateStatus="warning" help="Lorem ipsum dolor sit amet">
+      <Input value="lorem ipsum" id="warning" prefix={<SmileOutlined />} {...args} />
+    </Form.Item>
+
+    <Form.Item
+      label="Validating"
+      hasFeedback
+      validateStatus="validating"
+      help="Lorem ipsum dolor sit amet"
+    >
+      <Input value="lorem ipsum" id="validating" {...args} />
+    </Form.Item>
+
+    <Form.Item label="Success" hasFeedback validateStatus="success">
+      <Input value="lorem ipsum" id="success" {...args} />
+    </Form.Item>
+
+    <Form.Item
+      label="Warning"
+      hasFeedback
+      validateStatus="warning"
+      help="Lorem ipsum dolor sit amet"
+    >
+      <Input value="lorem ipsum" id="warning2" {...args} />
+    </Form.Item>
+
+    <Form.Item label="Fail" hasFeedback validateStatus="error" help="Lorem ipsum dolor sit amet">
+      <Input value="lorem ipsum" id="error2" {...args} />
+    </Form.Item>
+  </Form>
+);
