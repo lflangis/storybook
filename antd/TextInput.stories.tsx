@@ -50,8 +50,12 @@ export default {
     },
     placeholder: {
       description: 'Placeholder',
+      defaultValue: 'e.g. placeholder',
       control: { type: 'text' },
-      table: { type: { summary: 'string' } },
+      table: {
+        defaultValue: { summary: 'e.g. placeholder' },
+        type: { summary: 'string' },
+      },
     },
     prefix: {
       description: 'The prefix icon for the Input',
@@ -86,38 +90,6 @@ export default {
       control: { type: 'text' },
       table: { type: { summary: 'ReactNode' } },
     },
-    type: {
-      description: 'The type of input',
-      control: {
-        type: 'select',
-        options: [
-          'button',
-          'checkbox',
-          'color',
-          'date',
-          'datetime-local',
-          'email',
-          'file',
-          'hidden',
-          'image',
-          'month',
-          'number',
-          'password',
-          'radio',
-          'range',
-          'reset',
-          'search',
-          'submit',
-          'tel',
-          'text',
-          'time',
-          'url',
-          'week',
-        ],
-      },
-      defaultValue: 'text',
-      table: { defaultValue: { summary: 'text' }, type: { summary: 'string' } },
-    },
     value: {
       description: 'The input content value',
       control: { type: 'text' },
@@ -126,40 +98,30 @@ export default {
   },
 } as ComponentMeta<typeof Input>;
 
-const Template: ComponentStory<typeof Input> = (args) => (
+const InputTextTemplate: ComponentStory<typeof Input> = (args) => (
   <Space direction="vertical">
     <Space>
-      <Input placeholder="e.g. placeholder" {...args}></Input>
-      <Input placeholder="e.g. placeholder" prefix={<UserOutlined />} {...args}></Input>
-      <Input placeholder="e.g. placeholder" suffix={<UserOutlined />} {...args}></Input>
+      <Input {...args}></Input>
+      <Input prefix={<UserOutlined />} {...args}></Input>
+      <Input suffix={<UserOutlined />} {...args}></Input>
     </Space>
 
     <Space>
-      <Input placeholder="e.g. placeholder" defaultValue="lorem ipsum" {...args}></Input>
-      <Input
-        placeholder="e.g. placeholder"
-        defaultValue="lorem ipsum"
-        prefix={<UserOutlined />}
-        {...args}
-      ></Input>
-      <Input
-        placeholder="e.g. placeholder"
-        defaultValue="lorem ipsum"
-        suffix={<UserOutlined />}
-        {...args}
-      ></Input>
+      <Input defaultValue="lorem ipsum" {...args}></Input>
+      <Input defaultValue="lorem ipsum" prefix={<UserOutlined />} {...args}></Input>
+      <Input defaultValue="lorem ipsum" suffix={<UserOutlined />} {...args}></Input>
     </Space>
   </Space>
 );
 
-export const Default = Template.bind({});
+export const Default = InputTextTemplate.bind({});
 
-export const Error = Template.bind({});
+export const Error = InputTextTemplate.bind({});
 Error.args = {
   status: 'error',
 };
 
-export const Warning = Template.bind({});
+export const Warning = InputTextTemplate.bind({});
 Warning.args = {
   status: 'warning',
 };
